@@ -14,6 +14,7 @@ EMBEDDING_DIM = 300
 LR = 0.001
 BATCH_SIZE = 2
 NUM_EPOCHS = 1000
+PLOT = False
 
 # SEED
 torch.manual_seed(1)
@@ -80,7 +81,7 @@ with torch.no_grad():
     correct = (pred==target).sum().item()
     print(f'ACC: {correct} / {target.size(0)} [{100*correct / target.size(0):.2f}%]')
 
-    plot(model, dataset.vocab)
+    if PLOT: plot(model, dataset.vocab)
 
 
 
