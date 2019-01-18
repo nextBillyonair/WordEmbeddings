@@ -9,11 +9,11 @@ from models import get_model
 from dataset import Dataset
 
 MODEL_TYPE = 'NEG' # CBOW | NGRAM | SKIPGRAM | NEG
-CONTEXT_SIZE = 2
+CONTEXT_SIZE = 6
 EMBEDDING_DIM = 300
 LR = 0.001
 BATCH_SIZE = 2
-NUM_EPOCHS = 100
+NUM_EPOCHS = 1000
 
 # SEED
 torch.manual_seed(1)
@@ -80,8 +80,7 @@ with torch.no_grad():
     correct = (pred==target).sum().item()
     print(f'ACC: {correct} / {target.size(0)} [{100*correct / target.size(0):.2f}%]')
 
-    if EMBEDDING_DIM == 2:
-        plot(model, dataset.vocab)
+    plot(model, dataset.vocab)
 
 
 
