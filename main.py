@@ -13,7 +13,7 @@ CONTEXT_SIZE = 4
 EMBEDDING_DIM = 2
 LR = 0.001
 BATCH_SIZE = 2
-NUM_EPOCHS = 1000
+NUM_EPOCHS = 100
 PLOT = True
 K = 6 # NEGATIVE SAMPLES IF MODEL IS NEG
 
@@ -83,10 +83,21 @@ with torch.no_grad():
     if MODEL_TYPE != 'NEG':
         _, pred = output.topk(1)
     else:
-        pred = (output >= 0.5).float()
+        pred = (output >= 0.0).float()
 
     correct = (pred==target).sum().item()
-    print(f'ACC: {correct} / {target.size(0)} [{100*correct / target.size(0):.2f}%]')
+
+    print(f'POS ACC: {correct} / {target.size(0)} [{100*correct / target.size(0):.2f}%]')
+
+    if MODEL_TYPE == 'NEG':
+        negative_samples, negative_targets = dataset.generate_negative_samples(data, K)
+        output = model(negative_samples)
+        pred = (output >= 0.0).float()
+        negative_targets = format(negative_targets, MODEL_TYPE, eval=True)
+        correct = (pred==negative_targets).sum().item()
+        print(f'NEG ACC: {correct} / {negative_targets.size(0)} [{100*correct / negative_targets.size(0):.2f}%]')
+
+
 
     if PLOT: plot(model, dataset.vocab)
 
