@@ -11,14 +11,14 @@ def get_model(vocab_size, model_type, context_size, embedding_dim):
     elif model_type == 'SKIPGRAM':
         return SkipGram(vocab_size, embedding_dim, context_size)
     elif model_type == 'NEG':
-        return NegSampling(vocab_size, embedding_dim, context_size)
+        return NegativeSampling(vocab_size, embedding_dim, context_size)
     else:
         raise ValueError(f"ERROR: No Model of Type: {model_type}")
 
-class NegSampling(Module):
+class NegativeSampling(Module):
 
     def __init__(self, vocab_size, embedding_dim, context_size):
-        super(NegSampling, self).__init__()
+        super(NegativeSampling, self).__init__()
         self.embeddings = Embedding(vocab_size, embedding_dim)
 
     def forward(self, inputs):

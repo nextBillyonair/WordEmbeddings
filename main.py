@@ -10,10 +10,10 @@ from dataset import Dataset
 
 MODEL_TYPE = 'NEG' # CBOW | NGRAM | SKIPGRAM | NEG
 CONTEXT_SIZE = 2
-EMBEDDING_DIM = 50
+EMBEDDING_DIM = 300
 LR = 0.001
 BATCH_SIZE = 2
-NUM_EPOCHS = 25
+NUM_EPOCHS = 100
 
 # SEED
 torch.manual_seed(1)
@@ -26,7 +26,7 @@ dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True, **dataload
 criterion = CrossEntropyLoss() if MODEL_TYPE != 'NEG' else BCEWithLogitsLoss()
 model = get_model(dataset.vocab_size, MODEL_TYPE, CONTEXT_SIZE, EMBEDDING_DIM)
 optimizer = Adam(model.parameters(), lr=LR)
-# print(sum(p.numel() for p in model.parameters()))
+# print(sum(p.numel() for p in model.parameters())) # NUM PARAMS
 device = get_device()
 epoch = 0
 
