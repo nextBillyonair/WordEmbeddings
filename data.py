@@ -16,6 +16,11 @@
 # And see thy blood warm when thou feel'st it cold.
 # """.lower().split()
 
+# raw_text = """
+# Witches' Sabbath (The Great He-Goat) is an oil mural by the Spanish artist Francisco Goya. Satan is depicted as a goat in moonlit silhouette who preaches to a coven of terrified witches; a young woman in black sits at far right, withdrawn from the others, perhaps in defiance. The mural is one of the fourteen Black Paintings Goya created on the plaster walls of his home, the Quinta del Sordo, around 1822. He was in his mid-70s, living alone and suffering mental and physical distress. As in some of his earlier works, in Witches' Sabbath Goya seems to explore themes of aging, death, violence and intimidation. It is generally seen by art historians as a satire on the credulity of the age and as a condemnation of superstitions, such as the witch trials of the Spanish Inquisition. Some fifty years after Goya's death, the murals were removed from the home by transferring them to canvas supports. Today the paintings are in the collection of the Museo del Prado in Madrid.
+# """.lower().split()
+
+
 raw_text = """
 We are about to study the idea of a computational process.
 Computational processes are abstract beings that inhabit computers.
