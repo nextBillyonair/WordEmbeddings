@@ -49,12 +49,9 @@ class Dataset(TorchDataset):
 
     def generate_negative_samples(self, pos_samples, K=2):
         pairs = [(item[0][0].item(), item[0][1].item()) for item in torch.split(pos_samples, 1, dim=0)]
-        negative_samples = []
-        for pair in pairs:
-            for _ in range(K):
-                negative_samples.append(self.make_sample(pair[0]))
+        negative_samples = [self.make_sample(pair[0]) for _ in range(K) for pair in pairs]
         negative_samples = torch.tensor(negative_samples)
-        negative_targets = torch.zeros(pos_samples.size(0)*2)
+        negative_targets = torch.zeros(pos_samples.size(0)*K)
         return negative_samples, negative_targets
 
     def make_sample(self, center):
