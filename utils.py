@@ -61,7 +61,7 @@ def parse_data(data, model_type, context_size):
 def plot(model, vocab):
     words = list(vocab.get_vocab())
     word_tensor = torch.tensor(vocab.get_tensor(words))
-    embeds = model.embeddings(word_tensor)
+    embeds = PCA(model.embeddings(word_tensor))
     # should do PCA if embed_dim > 2
     x, y = torch.split(embeds, split_size_or_sections=1, dim=1)
     fig, ax = plt.subplots()
@@ -69,6 +69,14 @@ def plot(model, vocab):
     for i, word in enumerate(words):
         ax.annotate(word, (x[i], y[i]))
     plt.show()
+
+
+def PCA(X, k=2):
+    X_mean = torch.mean(X,0)
+    X = X - X_mean.expand_as(X)
+    U,S,V = torch.svd(torch.t(X))
+    return torch.mm(X, U[:,:k])
+
 
 if __name__ == '__main__':
     from data import raw_text
