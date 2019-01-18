@@ -70,7 +70,6 @@ def plot(model, vocab):
     words = list(vocab.get_vocab())
     word_tensor = torch.tensor(vocab.get_tensor(words))
     embeds = PCA(model.embeddings(word_tensor))
-    # should do PCA if embed_dim > 2
     x, y = torch.split(embeds, split_size_or_sections=1, dim=1)
     fig, ax = plt.subplots()
     ax.scatter(x, y)
