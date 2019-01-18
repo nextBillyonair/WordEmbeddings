@@ -1,6 +1,8 @@
 import torch
 import matplotlib.pyplot as plt
 from collections import Counter
+from numpy.random import choice
+import numpy as np
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -39,10 +41,16 @@ def build_negsampling(data, context_size=2):
 
 def build_unigram(data):
     distribution = Counter(data)
+    for key in distribution:
+        distribution[key] = distribution[key] ** (0.75)
     scale = sum(distribution.values())
     for key in distribution:
-        distribution[key] = (distribution[key] / scale) ** (0.75)
+        distribution[key] = distribution[key] / scale
     return distribution
+
+
+def sample(distribution, n=1):
+    return choice(list(distribution.keys()), size=n, p=list(distribution.values()))
 
 
 def parse_data(data, model_type, context_size):
@@ -80,7 +88,8 @@ def PCA(X, k=2):
 
 if __name__ == '__main__':
     from data import raw_text
-    build_unigram(raw_text)
+    dist = build_unigram(raw_text)
+    print(sample(dist, 5))
     ng = parse_data(raw_text, 'SKIPGRAM', 1)
     for i in range(5):
         print(ng[i])
