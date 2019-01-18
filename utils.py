@@ -49,7 +49,7 @@ def build_unigram(data):
     return distribution
 
 
-def sample(distribution, n=1):
+def sample_dist(distribution, n=1):
     return choice(list(distribution.keys()), size=n, p=list(distribution.values()))
 
 

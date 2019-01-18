@@ -15,6 +15,7 @@ LR = 0.001
 BATCH_SIZE = 2
 NUM_EPOCHS = 1000
 PLOT = False
+K = 2 # NEGATIVE SAMPLES IF MODEL IS NEG
 
 # SEED
 torch.manual_seed(1)
@@ -48,6 +49,12 @@ for epoch in range(epoch + 1, NUM_EPOCHS + 1):
         target = format(target, MODEL_TYPE)
 
         loss = criterion(output, target)
+
+        if MODEL_TYPE == 'NEG':
+            negative_samples, negative_targets = dataset.generate_negative_samples(data, K)
+            output = model(negative_samples).squeeze(1)
+            negative_targets = format(negative_targets, MODEL_TYPE)
+            loss += criterion(output, negative_targets)
 
         loss.backward()
         optimizer.step()
