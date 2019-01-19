@@ -79,7 +79,7 @@ def plot(model, vocab):
 
 
 def PCA(X, k=2):
-    X_mean = torch.mean(X,0)
+    X_mean = torch.mean(X, 0)
     X = X - X_mean.expand_as(X)
     U,S,V = torch.svd(torch.t(X))
     max_abs_cols = np.argmax(np.abs(U), axis=0)
