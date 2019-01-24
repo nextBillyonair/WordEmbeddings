@@ -8,14 +8,14 @@ from utils import get_device, format, plot
 from models import get_model
 from dataset import Dataset
 
-MODEL_TYPE = 'CBOW' # CBOW | NGRAM | SKIPGRAM | NEG
+MODEL_TYPE = 'NEG' # CBOW | NGRAM | SKIPGRAM | NEG
 CONTEXT_SIZE = 1
-EMBEDDING_DIM = 2
+EMBEDDING_DIM = 50
 LR = 0.01
 BATCH_SIZE = 16
-NUM_EPOCHS = 1000
+NUM_EPOCHS = 10
 PLOT = True
-K = 1 # NEGATIVE SAMPLES IF MODEL IS NEG
+K = 3 # NEGATIVE SAMPLES IF MODEL IS NEG
 
 # SEED
 torch.manual_seed(1)

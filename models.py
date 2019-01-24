@@ -1,6 +1,5 @@
 import torch
 from torch.nn import Embedding, Linear, Module
-from torch.nn.functional import relu, log_softmax, softmax
 
 
 def get_model(vocab_size, model_type, context_size, embedding_dim):
